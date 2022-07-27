@@ -9,9 +9,19 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import os
+import sys
 
 
 class Ui_MainWindow(object):
+#     def __init__(self) -> None:
+#         import sys
+#         app = QtWidgets.QApplication(sys.argv)
+#         MainWindow = QtWidgets.QMainWindow()
+#         self.setupUi(MainWindow)
+#         MainWindow.show()
+#         sys.exit(app.exec_())
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(490, 340)
@@ -155,23 +165,38 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.sleep_pushButton.clicked.connect(self.onSleepClick)
+        self.cancel_pushButton_2.clicked.connect(self.onCancelClick)
+
+    def onSleepClick(self):
+        strTime = self.input_comboBox.currentText()
+        l = strTime.split(' ')
+        if len(l) == 2:
+                time = int(l[0]) * 60
+        elif len(l) == 4:
+                time = int(l[0]) * 3600 + int(l[2]) * 60
+        os.system("shutdown /s /t " + str(time))
+
+    def onCancelClick(self):
+        os.system("shutdown /a")
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Time:"))
-        self.input_comboBox.setCurrentText(_translate("MainWindow", "30min"))
-        self.input_comboBox.setItemText(0, _translate("MainWindow", "30min"))
-        self.input_comboBox.setItemText(1, _translate("MainWindow", "1h00"))
-        self.input_comboBox.setItemText(2, _translate("MainWindow", "1h30"))
-        self.input_comboBox.setItemText(3, _translate("MainWindow", "2h00"))
-        self.input_comboBox.setItemText(4, _translate("MainWindow", "2h30"))
-        self.input_comboBox.setItemText(5, _translate("MainWindow", "3h00"))
+        self.input_comboBox.setCurrentText(_translate("MainWindow", "30 min"))
+        self.input_comboBox.setItemText(0, _translate("MainWindow", "30 min"))
+        self.input_comboBox.setItemText(1, _translate("MainWindow", "1 h 00"))
+        self.input_comboBox.setItemText(2, _translate("MainWindow", "1 h 30"))
+        self.input_comboBox.setItemText(3, _translate("MainWindow", "2 h 00"))
+        self.input_comboBox.setItemText(4, _translate("MainWindow", "2 h 30"))
+        self.input_comboBox.setItemText(5, _translate("MainWindow", "3 h 00"))
         self.sleep_pushButton.setText(_translate("MainWindow", "Sleep"))
         self.cancel_pushButton_2.setText(_translate("MainWindow", "Cancel"))
 
 
 if __name__ == "__main__":
-    import sys
+    
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
