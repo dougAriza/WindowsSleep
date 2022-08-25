@@ -173,7 +173,7 @@ class Ui_MainWindow(object):
         l = strTime.split(' ')
         if len(l) == 2:
                 time = int(l[0]) * 60
-        elif len(l) == 4:
+        elif len(l) == 3:
                 time = int(l[0]) * 3600 + int(l[2]) * 60
         os.system("shutdown /s /t " + str(time))
 
